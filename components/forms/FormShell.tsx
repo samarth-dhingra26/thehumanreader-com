@@ -32,8 +32,9 @@ export default function FormShell({
       return;
     }
 
+    const form = event.currentTarget;
     setStatus("submitting");
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
 
     try {
       const response = await fetch(endpoint, {
@@ -44,7 +45,7 @@ export default function FormShell({
 
       if (!response.ok) throw new Error("Submission failed");
       setStatus("success");
-      event.currentTarget.reset();
+      form.reset();
     } catch {
       setStatus("error");
     }
