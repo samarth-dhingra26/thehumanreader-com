@@ -3,7 +3,7 @@ export const FORM_ENDPOINTS = {
   paragraphReview: process.env.NEXT_PUBLIC_PARAGRAPH_FORM_ENDPOINT ?? "",
 } as const;
 
-export const CONTACT_EMAIL = "hello@thehumanreader.com";
+export const CONTACT_EMAIL = "review@thehumanreader.com";
 
 // Update once a legal entity (LLC/DBA) is formed.
 export const LEGAL_ENTITY_NAME = "The Human Reader";
