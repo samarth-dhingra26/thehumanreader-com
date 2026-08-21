@@ -9,6 +9,9 @@ export default function SiteFooter() {
       <p className={styles.meta}>
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
       </p>
+      <p className={styles.meta}>
+        <a href="/terms">Terms of Service</a> · <a href="/privacy">Privacy Policy</a>
+      </p>
       <p className={styles.meta}>© 2026 The Human Reader</p>
     </footer>
   );

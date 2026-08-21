@@ -58,6 +58,15 @@ export default function FormShell({
     <form className={styles.form} onSubmit={handleSubmit}>
       <input type="hidden" name="_subject" value={subject} />
       {children}
+      <label className={styles.consent}>
+        <input type="checkbox" name="consent" required />
+        <span>
+          I&rsquo;m 13 or older. If I&rsquo;m under 18, a parent or guardian
+          consents to this submission and its use as described in the{" "}
+          <a href="/terms">Terms of Service</a> and{" "}
+          <a href="/privacy">Privacy Policy</a>.
+        </span>
+      </label>
       <div className={styles.actions}>
         <Button type="submit" disabled={status === "submitting"}>
           {status === "submitting" ? "Sending…" : submitLabel}

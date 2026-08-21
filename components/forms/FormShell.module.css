@@ -46,6 +46,26 @@
   border-color: var(--accent);
 }
 
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.consent input {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.consent a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
 .actions {
   display: flex;
   flex-direction: column;
