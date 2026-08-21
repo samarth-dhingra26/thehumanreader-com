@@ -14,8 +14,8 @@ export default function Home() {
       <main>
         <Hero />
         <Differentiation />
-        <FreeScoreCta />
         <FreeReviewCta />
+        <FreeScoreCta />
         <ServicesOverview />
         <HowMatchingWorks />
       </main>

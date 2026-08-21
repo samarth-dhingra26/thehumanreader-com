@@ -11,9 +11,9 @@ export default function Hero() {
         from a real person who reads for a living.
       </p>
       <div className={styles.ctas}>
-        <Button href="#free-score">Get your free Application Score</Button>
-        <Button href="#free-review" variant="secondary">
-          Get one paragraph reviewed, free
+        <Button href="#free-review">Get one paragraph reviewed, free</Button>
+        <Button href="#free-score" variant="secondary">
+          Get your free Application Score
         </Button>
       </div>
       <p className={styles.caption}>
