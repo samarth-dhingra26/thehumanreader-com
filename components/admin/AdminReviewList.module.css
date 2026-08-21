@@ -1,0 +1,49 @@
+.main {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+.title {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.empty {
+  font-family: var(--font-sans);
+  color: var(--muted);
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.meta {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+
+.paragraph {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.textarea {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.7rem 0.85rem;
+  min-height: 8rem;
+  resize: vertical;
+  margin-bottom: 0.8rem;
+}

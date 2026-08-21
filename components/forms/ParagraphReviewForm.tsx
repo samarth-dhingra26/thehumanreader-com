@@ -1,26 +1,173 @@
-import FormShell from "./FormShell";
-import { FORM_ENDPOINTS } from "../../lib/config";
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { getCurrentUser, signIn, signUp, confirmSignUp } from "aws-amplify/auth";
+import { dataClient } from "../../lib/amplify/client";
+import Button from "../ui/Button";
 import styles from "./FormShell.module.css";
 
+type Stage = "input" | "auth" | "verify" | "submitting" | "success" | "error";
+
 export default function ParagraphReviewForm() {
+  const [stage, setStage] = useState<Stage>("input");
+  const [paragraph, setParagraph] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function createSubmission(submitterEmail: string) {
+    await dataClient.models.Submission.create({
+      paragraphText: paragraph,
+      submitterName: name,
+      submitterEmail,
+      status: "PENDING",
+      submittedAt: new Date().toISOString(),
+    });
+    setStage("success");
+  }
+
+  async function handleInputSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStage("submitting");
+    try {
+      const user = await getCurrentUser();
+      await createSubmission(user.signInDetails?.loginId ?? email);
+    } catch {
+      setStage("auth");
+    }
+  }
+
+  async function handleAuthSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStage("submitting");
+    setErrorMessage("");
+    try {
+      await signUp({
+        username: email,
+        password,
+        options: { userAttributes: { email } },
+      });
+      setStage("verify");
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
+      setStage("auth");
+    }
+  }
+
+  async function handleVerifySubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStage("submitting");
+    setErrorMessage("");
+    try {
+      await confirmSignUp({ username: email, confirmationCode: code });
+      await signIn({ username: email, password });
+      await dataClient.models.UserProfile.create({
+        consentGivenAt: new Date().toISOString(),
+      });
+      await createSubmission(email);
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
+      setStage("verify");
+    }
+  }
+
+  if (stage === "success") {
+    return (
+      <p className={`${styles.status} ${styles.success}`}>
+        Got it — a matched reader will get back to you within 3 business days. Log in anytime to
+        check your dashboard.
+      </p>
+    );
+  }
+
+  if (stage === "verify") {
+    return (
+      <form className={styles.form} onSubmit={handleVerifySubmit}>
+        <p className={styles.microcopy}>We emailed a code to {email} — enter it below.</p>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="review-code">
+            Verification code
+          </label>
+          <input
+            className={styles.input}
+            id="review-code"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            required
+          />
+        </div>
+        <div className={styles.actions}>
+          <Button type="submit">Confirm and submit my review</Button>
+          {errorMessage && <p className={`${styles.status} ${styles.error}`}>{errorMessage}</p>}
+        </div>
+      </form>
+    );
+  }
+
+  if (stage === "auth") {
+    return (
+      <form className={styles.form} onSubmit={handleAuthSubmit}>
+        <p className={styles.microcopy}>
+          Create a free account so we can send your review to your dashboard.
+        </p>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="review-account-email">
+            Email
+          </label>
+          <input
+            className={styles.input}
+            id="review-account-email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="review-account-password">
+            Password
+          </label>
+          <input
+            className={styles.input}
+            id="review-account-password"
+            type="password"
+            minLength={8}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <label className={styles.consent}>
+          <input type="checkbox" required />
+          <span>
+            I&rsquo;m 13 or older. If I&rsquo;m under 18, a parent or guardian consents to this
+            submission and its use as described in the <a href="/terms">Terms of Service</a> and{" "}
+            <a href="/privacy">Privacy Policy</a>.
+          </span>
+        </label>
+        <div className={styles.actions}>
+          <Button type="submit">Create account and continue</Button>
+          {errorMessage && <p className={`${styles.status} ${styles.error}`}>{errorMessage}</p>}
+        </div>
+      </form>
+    );
+  }
+
   return (
-    <FormShell
-      endpoint={FORM_ENDPOINTS.paragraphReview}
-      subject="New free paragraph review request"
-      submitLabel="Get my free paragraph review"
-      successMessage="Got it — a matched reader will get back to you within 3 business days."
-    >
+    <form className={styles.form} onSubmit={handleInputSubmit}>
       <div className={styles.field}>
         <label className={styles.label} htmlFor="review-name">
           Name
         </label>
-        <input className={styles.input} id="review-name" name="name" type="text" required />
-      </div>
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="review-email">
-          Email
-        </label>
-        <input className={styles.input} id="review-email" name="email" type="email" required />
+        <input
+          className={styles.input}
+          id="review-name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
       </div>
       <div className={styles.field}>
         <label className={styles.label} htmlFor="review-paragraph">
@@ -29,11 +176,17 @@ export default function ParagraphReviewForm() {
         <textarea
           className={styles.textarea}
           id="review-paragraph"
-          name="paragraph"
           maxLength={1200}
+          value={paragraph}
+          onChange={(e) => setParagraph(e.target.value)}
           required
         />
       </div>
-    </FormShell>
+      <div className={styles.actions}>
+        <Button type="submit" disabled={stage === "submitting"}>
+          {stage === "submitting" ? "Sending…" : "Get my free paragraph review"}
+        </Button>
+      </div>
+    </form>
   );
 }

@@ -1,0 +1,72 @@
+.main {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+.title {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.empty {
+  font-family: var(--font-sans);
+  color: var(--muted);
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.paragraph {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.status {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.reviewLabel {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 1.2rem 0 0.6rem;
+}
+
+.reviewText {
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.upsell {
+  border-top: 1px solid var(--border);
+  margin-top: 1.4rem;
+  padding-top: 1.4rem;
+  text-align: center;
+}
+
+.upsellTitle {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.upsellBody {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
