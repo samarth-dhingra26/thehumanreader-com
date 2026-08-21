@@ -1,0 +1,33 @@
+.section {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.body {
+  line-height: 1.7;
+  margin-bottom: 1.1rem;
+}
+
+.bullets {
+  list-style: none;
+  margin-top: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.bullets li {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.bullets li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}

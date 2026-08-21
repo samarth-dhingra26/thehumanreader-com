@@ -1,0 +1,15 @@
+.section {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.microcopy {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+  margin: -1.4rem auto 2rem;
+  max-width: 26rem;
+}
