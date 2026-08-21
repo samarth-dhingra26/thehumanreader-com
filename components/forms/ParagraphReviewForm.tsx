@@ -8,7 +8,7 @@ export default function ParagraphReviewForm() {
       endpoint={FORM_ENDPOINTS.paragraphReview}
       subject="New free paragraph review request"
       submitLabel="Get my free paragraph review"
-      successMessage="Got it — a matched reader will get back to you within a couple of days."
+      successMessage="Got it — a matched reader will get back to you within 3 business days."
     >
       <div className={styles.field}>
         <label className={styles.label} htmlFor="review-name">

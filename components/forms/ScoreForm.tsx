@@ -8,7 +8,7 @@ export default function ScoreForm() {
       endpoint={FORM_ENDPOINTS.scoreRequest}
       subject="New free Application Score request"
       submitLabel="Get my free score"
-      successMessage="Got it — we'll send your score and notes within a couple of days."
+      successMessage="Got it — we'll send your score and notes within 3 business days."
     >
       <div className={styles.field}>
         <label className={styles.label} htmlFor="score-name">
