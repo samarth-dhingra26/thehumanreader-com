@@ -1,47 +1,145 @@
 .hero {
-  max-width: 40rem;
+  max-width: 72rem;
   margin: 0 auto;
-  padding: 3rem 2rem 4rem;
-  text-align: center;
+  padding: 3.5rem 2rem 0;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: center;
 }
 
-.emblem {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.6rem;
+@media (max-width: 56rem) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: 2.5rem;
+  }
 }
 
-.emblem svg {
-  width: 90px;
-  height: 90px;
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  margin-bottom: 1.4rem;
+  background: var(--bg);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 .title {
-  font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 500;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
   letter-spacing: -0.01em;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 .subhead {
-  font-style: italic;
   color: var(--muted);
-  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
   line-height: 1.55;
   margin-bottom: 1.8rem;
+  max-width: 34rem;
+}
+
+@media (max-width: 56rem) {
+  .subhead {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .ctas {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  gap: 0.9rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 56rem) {
+  .ctas {
+    justify-content: center;
+  }
 }
 
 .caption {
   font-family: var(--font-sans);
   font-size: 0.78rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: var(--muted);
+}
+
+.photoColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photoCard {
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  aspect-ratio: 4 / 5;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ddd6c4 0%, #c9c0a8 55%, #b7ac8e 100%);
+}
+
+.photoPlaceholderHint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: rgba(26, 24, 21, 0.4);
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.statusCard {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--ink);
+  color: var(--ink-fg);
+  border-radius: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+}
+
+.statusCard .dot {
+  background: var(--accent);
+}
+
+.statusMuted {
+  color: var(--ink-muted);
+}
+
+.tagline {
+  margin-top: 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.tagline strong {
+  color: var(--fg);
 }

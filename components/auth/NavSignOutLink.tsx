@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "aws-amplify/auth";
 import "../../lib/amplify/client";
 
-export default function NavSignOutLink() {
+export default function NavSignOutLink({ className }: { className?: string }) {
   const router = useRouter();
 
   async function handleClick() {
@@ -13,7 +13,14 @@ export default function NavSignOutLink() {
   }
 
   return (
-    <a href="#" onClick={(e) => { e.preventDefault(); handleClick(); }}>
+    <a
+      href="#"
+      className={className}
+      onClick={(e) => {
+        e.preventDefault();
+        handleClick();
+      }}
+    >
       Log out
     </a>
   );

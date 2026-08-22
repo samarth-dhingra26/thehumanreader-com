@@ -1,0 +1,39 @@
+.bar {
+  background: var(--ink);
+  color: var(--ink-fg);
+  padding: 3rem 2rem;
+  margin-top: 4rem;
+}
+
+.grid {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 40rem) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.2rem;
+  }
+}
+
+.stat {
+  text-align: left;
+}
+
+.number {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  margin-bottom: 0.3rem;
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}

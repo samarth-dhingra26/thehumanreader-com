@@ -1,6 +1,7 @@
 import SiteHeader from "../components/layout/SiteHeader";
 import SiteFooter from "../components/layout/SiteFooter";
 import Hero from "../components/sections/Hero";
+import StatsBar from "../components/sections/StatsBar";
 import Differentiation from "../components/sections/Differentiation";
 import FreeScoreCta from "../components/sections/FreeScoreCta";
 import FreeReviewCta from "../components/sections/FreeReviewCta";
@@ -13,6 +14,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         <Hero />
+        <StatsBar />
         <Differentiation />
         <FreeReviewCta />
         <FreeScoreCta />

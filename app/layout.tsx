@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda } from "next/font/google";
+import { Archivo_Black, Inter } from "next/font/google";
 import "./globals.css";
 
-const brandFont = Bodoni_Moda({
+const displayFont = Archivo_Black({
   subsets: ["latin"],
-  variable: "--font-brand",
+  variable: "--font-display",
   display: "swap",
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400"],
+});
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const TITLE = "The Human Reader — Your essays need to be you. Not AI.";
@@ -38,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={brandFont.variable}>
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body>{children}</body>
     </html>
   );
