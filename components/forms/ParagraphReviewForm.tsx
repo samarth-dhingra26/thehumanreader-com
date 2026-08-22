@@ -6,10 +6,11 @@ import { dataClient } from "../../lib/amplify/client";
 import Button from "../ui/Button";
 import styles from "./FormShell.module.css";
 
-type Stage = "input" | "auth" | "verify" | "submitting" | "success" | "error";
+type Stage = "input" | "auth" | "verify" | "success";
 
 export default function ParagraphReviewForm() {
   const [stage, setStage] = useState<Stage>("input");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [paragraph, setParagraph] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,18 +31,20 @@ export default function ParagraphReviewForm() {
 
   async function handleInputSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStage("submitting");
+    setIsSubmitting(true);
     try {
       const user = await getCurrentUser();
       await createSubmission(user.signInDetails?.loginId ?? email);
     } catch {
       setStage("auth");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
   async function handleAuthSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStage("submitting");
+    setIsSubmitting(true);
     setErrorMessage("");
     try {
       await signUp({
@@ -52,13 +55,14 @@ export default function ParagraphReviewForm() {
       setStage("verify");
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
-      setStage("auth");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
   async function handleVerifySubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStage("submitting");
+    setIsSubmitting(true);
     setErrorMessage("");
     try {
       await confirmSignUp({ username: email, confirmationCode: code });
@@ -69,7 +73,8 @@ export default function ParagraphReviewForm() {
       await createSubmission(email);
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
-      setStage("verify");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -99,7 +104,9 @@ export default function ParagraphReviewForm() {
           />
         </div>
         <div className={styles.actions}>
-          <Button type="submit">Confirm and submit my review</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Confirming…" : "Confirm and submit my review"}
+          </Button>
           {errorMessage && <p className={`${styles.status} ${styles.error}`}>{errorMessage}</p>}
         </div>
       </form>
@@ -148,7 +155,9 @@ export default function ParagraphReviewForm() {
           </span>
         </label>
         <div className={styles.actions}>
-          <Button type="submit">Create account and continue</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Creating account…" : "Create account and continue"}
+          </Button>
           {errorMessage && <p className={`${styles.status} ${styles.error}`}>{errorMessage}</p>}
         </div>
       </form>
@@ -183,8 +192,8 @@ export default function ParagraphReviewForm() {
         />
       </div>
       <div className={styles.actions}>
-        <Button type="submit" disabled={stage === "submitting"}>
-          {stage === "submitting" ? "Sending…" : "Get my free paragraph review"}
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Sending…" : "Get my free paragraph review"}
         </Button>
       </div>
     </form>
