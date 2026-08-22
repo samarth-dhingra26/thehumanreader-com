@@ -45,7 +45,8 @@ export default function Hero() {
           <div className={styles.statusCard}>
             <span className={styles.dot} />
             <span>
-              reviewed by a human — <span className={styles.statusMuted}>not AI</span>
+              College Applications reviewed by a human —{" "}
+              <span className={styles.statusMuted}>not AI</span>
             </span>
           </div>
         </div>
