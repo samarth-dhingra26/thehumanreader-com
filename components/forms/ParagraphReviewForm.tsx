@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { getCurrentUser, signIn, signUp, confirmSignUp } from "aws-amplify/auth";
+import { getCurrentUser, signIn, signUp, confirmSignUp, resendSignUpCode } from "aws-amplify/auth";
 import { dataClient } from "../../lib/amplify/client";
 import Button from "../ui/Button";
 import styles from "./FormShell.module.css";
@@ -17,6 +17,8 @@ export default function ParagraphReviewForm() {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isResending, setIsResending] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
 
   async function createSubmission(submitterEmail: string) {
     await dataClient.models.Submission.create({
@@ -78,6 +80,19 @@ export default function ParagraphReviewForm() {
     }
   }
 
+  async function handleResendCode() {
+    setIsResending(true);
+    setResendMessage("");
+    try {
+      await resendSignUpCode({ username: email });
+      setResendMessage("Code resent — check your email.");
+    } catch (err) {
+      setResendMessage(err instanceof Error ? err.message : "Couldn't resend the code.");
+    } finally {
+      setIsResending(false);
+    }
+  }
+
   if (stage === "success") {
     return (
       <p className={`${styles.status} ${styles.success}`}>
@@ -108,6 +123,16 @@ export default function ParagraphReviewForm() {
             {isSubmitting ? "Confirming…" : "Confirm and submit my review"}
           </Button>
           {errorMessage && <p className={`${styles.status} ${styles.error}`}>{errorMessage}</p>}
+          <button
+            type="button"
+            className={styles.microcopy}
+            onClick={handleResendCode}
+            disabled={isResending}
+            style={{ background: "none", border: "none", textDecoration: "underline", cursor: "pointer" }}
+          >
+            {isResending ? "Resending…" : "Didn't get a code? Resend it"}
+          </button>
+          {resendMessage && <p className={styles.microcopy}>{resendMessage}</p>}
         </div>
       </form>
     );
