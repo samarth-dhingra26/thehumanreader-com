@@ -11,11 +11,15 @@ export default function Hero() {
           Human Readers, Not AI
         </span>
         <h1 className={styles.title}>Colleges want your essay to be unmistakably yours.</h1>
-        <p className={styles.subhead}>
+        <p className={`${styles.subhead} ${styles.desktopOnly}`}>
           We help you stand out of the crowd. The Human Reader Coach works
           with you 1-on-1 as you plan, write, revise, and finalize every
           written part of every application — essays, activities lists,
           additional information, portfolios, scholarship essays, and more!
+        </p>
+        <p className={`${styles.subhead} ${styles.mobileOnly}`}>
+          The Human Reader Coach works 1-on-1 with you on every essay,
+          activity list, and scholarship application.
         </p>
         <div className={styles.ctas}>
           <Button href="#free-review">Get one paragraph reviewed, free</Button>
@@ -23,8 +27,11 @@ export default function Hero() {
             Get your free Application Score
           </Button>
         </div>
-        <p className={styles.caption}>
+        <p className={`${styles.caption} ${styles.desktopOnly}`}>
           No credit card. No AI-generated feedback. Just a real reader.
+        </p>
+        <p className={`${styles.caption} ${styles.mobileOnly}`}>
+          No credit card. Just a real reader.
         </p>
         <div className={styles.inlineStats}>
           <span>All-human review</span>
@@ -45,7 +52,7 @@ export default function Hero() {
           <div className={styles.statusCard}>
             <span className={styles.dot} />
             <span>
-              College Applications reviewed by a human —{" "}
+              College applications reviewed by a human —{" "}
               <span className={styles.statusMuted}>not AI</span>
             </span>
           </div>

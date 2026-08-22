@@ -161,3 +161,52 @@
 .tagline strong {
   color: var(--fg);
 }
+
+.mobileOnly {
+  display: none;
+}
+
+@media (max-width: 30rem) {
+  .hero {
+    padding-top: 1rem;
+    gap: 1.1rem;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: block;
+  }
+
+  .badge {
+    margin-bottom: 0.6rem;
+  }
+
+  .title {
+    font-size: 1.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subhead {
+    margin-bottom: 0.8rem;
+  }
+
+  .ctas {
+    gap: 0.55rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .inlineStats {
+    margin-top: 0.5rem;
+  }
+
+  .photoCard {
+    max-width: 15rem;
+  }
+
+  .tagline {
+    margin-top: 0.5rem;
+  }
+}
