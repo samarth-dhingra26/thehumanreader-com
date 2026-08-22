@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
+import { Bodoni_Moda } from "next/font/google";
 import "./globals.css";
+
+const brandFont = Bodoni_Moda({
+  subsets: ["latin"],
+  variable: "--font-brand",
+  display: "swap",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+});
 
 const TITLE = "The Human Reader — Your essays need to be you. Not AI.";
 const DESCRIPTION =
@@ -29,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={brandFont.variable}>
       <body>{children}</body>
     </html>
   );
