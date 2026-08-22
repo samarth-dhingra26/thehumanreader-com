@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Button from "../ui/Button";
 import styles from "./Hero.module.css";
 
@@ -7,13 +8,14 @@ export default function Hero() {
       <div>
         <span className={styles.badge}>
           <span className={styles.dot} />
-          human readers matched daily
+          Human Readers, Not AI
         </span>
-        <h1 className={styles.title}>Your essays need to be you. Not AI.</h1>
+        <h1 className={styles.title}>Colleges want your essay to be unmistakably yours.</h1>
         <p className={styles.subhead}>
-          We use AI for exactly one thing: finding the right human for your
-          essay. Every review, every score, every note in the margins comes
-          from a real person who reads for a living.
+          We help you stand out of the crowd. The Human Reader Coach works
+          with you 1-on-1 as you plan, write, revise, and finalize every
+          written part of every application — essays, activities lists,
+          additional information, portfolios, scholarship essays, and more!
         </p>
         <div className={styles.ctas}>
           <Button href="#free-review">Get one paragraph reviewed, free</Button>
@@ -24,11 +26,22 @@ export default function Hero() {
         <p className={styles.caption}>
           No credit card. No AI-generated feedback. Just a real reader.
         </p>
+        <div className={styles.inlineStats}>
+          <span>All-human review</span>
+          <span>Free to try</span>
+          <span>3-day turnaround</span>
+        </div>
       </div>
       <div className={styles.photoColumn}>
         <div className={styles.photoCard}>
-          {/* TODO: replace with a real portrait image (e.g. public/hero-reader.jpg + <img>) */}
-          <div className={styles.photoPlaceholderHint}>photo of a matched human reader</div>
+          <Image
+            src="/hero-reader.png"
+            alt="Two students celebrating in graduation caps and gowns"
+            fill
+            sizes="(max-width: 56rem) 90vw, 22rem"
+            style={{ objectFit: "cover" }}
+            priority
+          />
           <div className={styles.statusCard}>
             <span className={styles.dot} />
             <span>

@@ -46,10 +46,10 @@
 
 .subhead {
   color: var(--muted);
-  font-size: clamp(1rem, 1.6vw, 1.1rem);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
   line-height: 1.55;
-  margin-bottom: 1.8rem;
-  max-width: 34rem;
+  margin-bottom: 1.6rem;
+  max-width: 38rem;
 }
 
 @media (max-width: 56rem) {
@@ -80,6 +80,37 @@
   color: var(--muted);
 }
 
+.inlineStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  margin-top: 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+@media (max-width: 56rem) {
+  .inlineStats {
+    justify-content: center;
+  }
+}
+
+.inlineStats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.inlineStats span::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 .photoColumn {
   display: flex;
   flex-direction: column;
@@ -94,19 +125,6 @@
   border-radius: 1.2rem;
   overflow: hidden;
   background: linear-gradient(160deg, #ddd6c4 0%, #c9c0a8 55%, #b7ac8e 100%);
-}
-
-.photoPlaceholderHint {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  color: rgba(26, 24, 21, 0.4);
-  text-align: center;
-  padding: 1.5rem;
 }
 
 .statusCard {
