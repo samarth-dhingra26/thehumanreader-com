@@ -5,6 +5,12 @@
   text-align: center;
 }
 
+.emblem {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
 .title {
   font-size: clamp(2.2rem, 7vw, 3.4rem);
   font-weight: 500;
