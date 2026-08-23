@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signUp, confirmSignUp, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { dataClient } from "../../lib/amplify/client";
+import { getTier, formatPrice } from "../../lib/stripe/tiers";
 import Button from "../ui/Button";
 import styles from "./AuthForm.module.css";
 
@@ -23,10 +24,22 @@ export default function SignupForm() {
   const [resendMessage, setResendMessage] = useState("");
 
   const tier = searchParams.get("tier");
+  const selectedTier = tier ? getTier(tier) : undefined;
   const redirectTarget = searchParams.get("redirect") || "/dashboard";
   const loginHref = `/login?redirect=${encodeURIComponent(redirectTarget)}${
     tier ? `&tier=${encodeURIComponent(tier)}` : ""
   }`;
+
+  const cartSummary = selectedTier && (
+    <div className={styles.cart}>
+      <div className={styles.cartLabel}>Your cart</div>
+      <div className={styles.cartRow}>
+        <span className={styles.cartName}>{selectedTier.name}</span>
+        <span className={styles.cartPrice}>{formatPrice(selectedTier.priceCents)}</span>
+      </div>
+      <p className={styles.cartDescription}>{selectedTier.description}</p>
+    </div>
+  );
 
   async function finishSignupAndContinue() {
     await dataClient.models.UserProfile.create({
@@ -93,6 +106,7 @@ export default function SignupForm() {
     return (
       <div className={styles.wrap}>
         <h1 className={styles.title}>Check your email</h1>
+        {cartSummary}
         <form className={styles.form} onSubmit={handleVerify}>
           <p className={styles.hint}>We emailed a code to {email} — enter it below.</p>
           <div className={styles.field}>
@@ -130,8 +144,12 @@ export default function SignupForm() {
   return (
     <div className={styles.wrap}>
       <h1 className={styles.title}>Create your account</h1>
-      {tier && (
-        <p className={styles.hint}>Create an account to continue to checkout for your package.</p>
+      {cartSummary}
+      {selectedTier && (
+        <p className={styles.hint} style={{ marginBottom: "1.2rem" }}>
+          Create an account, then you&rsquo;ll enter your card details on Stripe&rsquo;s secure
+          checkout page to complete this purchase.
+        </p>
       )}
       <form className={styles.form} onSubmit={handleSignup}>
         <div className={styles.field}>

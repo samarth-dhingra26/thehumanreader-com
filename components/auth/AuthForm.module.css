@@ -95,3 +95,46 @@
 .hint a {
   color: var(--fg);
 }
+
+.cart {
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.4rem;
+  text-align: left;
+}
+
+.cartLabel {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.cartRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.cartName {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cartPrice {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.cartDescription {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}

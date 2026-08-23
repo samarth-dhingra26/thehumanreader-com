@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "aws-amplify/auth";
 import "../../lib/amplify/client";
+import { getTier, formatPrice } from "../../lib/stripe/tiers";
 import Button from "../ui/Button";
 import styles from "./AuthForm.module.css";
 
@@ -13,6 +14,9 @@ export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<Status>("idle");
+
+  const tierParam = searchParams.get("tier");
+  const selectedTier = tierParam ? getTier(tierParam) : undefined;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,6 +51,16 @@ export default function LoginForm() {
   return (
     <div className={styles.wrap}>
       <h1 className={styles.title}>Log in</h1>
+      {selectedTier && (
+        <div className={styles.cart}>
+          <div className={styles.cartLabel}>Your cart</div>
+          <div className={styles.cartRow}>
+            <span className={styles.cartName}>{selectedTier.name}</span>
+            <span className={styles.cartPrice}>{formatPrice(selectedTier.priceCents)}</span>
+          </div>
+          <p className={styles.cartDescription}>{selectedTier.description}</p>
+        </div>
+      )}
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.field}>
           <label className={styles.label} htmlFor="login-email">
