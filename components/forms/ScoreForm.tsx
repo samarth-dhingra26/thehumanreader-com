@@ -20,7 +20,15 @@ export default function ScoreForm() {
         <label className={styles.label} htmlFor="score-email">
           Email
         </label>
-        <input className={styles.input} id="score-email" name="email" type="email" required />
+        <input
+          className={styles.input}
+          id="score-email"
+          name="email"
+          type="text"
+          inputMode="email"
+          autoComplete="email"
+          required
+        />
       </div>
       <div className={styles.field}>
         <label className={styles.label} htmlFor="score-essay-type">

@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Button from "../ui/Button";
 import { CONTACT_EMAIL } from "../../lib/config";
+import { isValidEmail } from "../../lib/validation";
 import styles from "./FormShell.module.css";
 
 type FormShellProps = {
@@ -23,18 +24,28 @@ export default function FormShell({
   children,
 }: FormShellProps) {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
-    if (!endpoint) {
+    const email = formData.get("email");
+    if (typeof email === "string" && email && !isValidEmail(email)) {
+      setErrorMessage("That email address doesn't look right — double-check it and try again.");
       setStatus("error");
       return;
     }
 
-    const form = event.currentTarget;
+    if (!endpoint) {
+      setErrorMessage("");
+      setStatus("error");
+      return;
+    }
+
     setStatus("submitting");
-    const formData = new FormData(form);
+    setErrorMessage("");
 
     try {
       const response = await fetch(endpoint, {
@@ -47,6 +58,7 @@ export default function FormShell({
       setStatus("success");
       form.reset();
     } catch {
+      setErrorMessage("");
       setStatus("error");
     }
   }
@@ -74,8 +86,12 @@ export default function FormShell({
         </Button>
         {status === "error" && (
           <p className={`${styles.status} ${styles.error}`}>
-            Something went wrong. Email us directly at{" "}
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> instead.
+            {errorMessage || (
+              <>
+                Something went wrong. Email us directly at{" "}
+                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> instead.
+              </>
+            )}
           </p>
         )}
       </div>

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import Button from "../ui/Button";
 import { TIERS, getTier, formatPrice } from "../../lib/stripe/tiers";
+import { isValidEmail } from "../../lib/validation";
 import styles from "./AuthForm.module.css";
 
 type Status = "idle" | "submitting" | "error";
@@ -26,6 +27,11 @@ export default function QuickBuyForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!selectedTier) return;
+    if (!isValidEmail(email)) {
+      setErrorMessage("That email address doesn't look right — double-check it and try again.");
+      setStatus("error");
+      return;
+    }
     setStatus("submitting");
     setErrorMessage("");
     setExistingAccount(false);
@@ -122,7 +128,9 @@ export default function QuickBuyForm() {
             <input
               className={styles.input}
               id="quickbuy-email"
-              type="email"
+              type="text"
+              inputMode="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required

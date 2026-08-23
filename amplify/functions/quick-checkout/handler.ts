@@ -29,6 +29,8 @@ function json(statusCode: number, body: Record<string, unknown>) {
   };
 }
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 // Creates the account and lets Cognito generate + email its own temporary
 // password (its built-in invitation email, independent of our SES setup).
 // The visitor never sees a password here — they set one the first time they
@@ -57,6 +59,9 @@ export const handler: LambdaFunctionURLHandler = async (event) => {
   }
   if (!email || !origin) {
     return json(400, { error: "Missing email or origin" });
+  }
+  if (!EMAIL_PATTERN.test(email)) {
+    return json(400, { error: "That email address doesn't look right — double-check it and try again." });
   }
 
   try {

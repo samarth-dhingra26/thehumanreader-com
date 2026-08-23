@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, confirmSignIn } from "aws-amplify/auth";
 import "../../lib/amplify/client";
 import { TIERS, getTier, formatPrice } from "../../lib/stripe/tiers";
+import { isValidEmail } from "../../lib/validation";
 import Button from "../ui/Button";
 import styles from "./AuthForm.module.css";
 
@@ -42,12 +43,19 @@ export default function LoginForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("submitting");
-    setErrorMessage("");
     const formData = new FormData(event.currentTarget);
     const submittedEmail = String(formData.get("email"));
     const password = String(formData.get("password"));
     setEmail(submittedEmail);
+
+    if (!isValidEmail(submittedEmail)) {
+      setErrorMessage("That email address doesn't look right — double-check it and try again.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("submitting");
+    setErrorMessage("");
 
     try {
       const result = await signIn({ username: submittedEmail, password });
@@ -162,7 +170,9 @@ export default function LoginForm() {
             className={styles.input}
             id="login-email"
             name="email"
-            type="email"
+            type="text"
+            inputMode="email"
+            autoComplete="email"
             defaultValue={email}
             required
           />

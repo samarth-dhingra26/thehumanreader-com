@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { getCurrentUser, signIn, signUp, confirmSignUp, resendSignUpCode } from "aws-amplify/auth";
 import { dataClient } from "../../lib/amplify/client";
 import { CONTACT_EMAIL } from "../../lib/config";
+import { isValidEmail } from "../../lib/validation";
 import ContactForm from "./ContactForm";
 import Button from "../ui/Button";
 import styles from "./FormShell.module.css";
@@ -58,6 +59,10 @@ export default function ParagraphReviewForm() {
 
   async function handleAuthSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!isValidEmail(email)) {
+      setErrorMessage("That email address doesn't look right — double-check it and try again.");
+      return;
+    }
     setIsSubmitting(true);
     setErrorMessage("");
     try {
@@ -183,7 +188,9 @@ export default function ParagraphReviewForm() {
           <input
             className={styles.input}
             id="review-account-email"
-            type="email"
+            type="text"
+            inputMode="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

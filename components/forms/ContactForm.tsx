@@ -20,7 +20,15 @@ export default function ContactForm() {
         <label className={styles.label} htmlFor="contact-email">
           Email
         </label>
-        <input className={styles.input} id="contact-email" name="email" type="email" required />
+        <input
+          className={styles.input}
+          id="contact-email"
+          name="email"
+          type="text"
+          inputMode="email"
+          autoComplete="email"
+          required
+        />
       </div>
       <div className={styles.field}>
         <label className={styles.label} htmlFor="contact-message">
