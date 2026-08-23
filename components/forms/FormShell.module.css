@@ -36,7 +36,6 @@
 .textarea {
   resize: vertical;
   min-height: 6rem;
-  font-family: var(--font-serif);
 }
 
 .input:focus,
