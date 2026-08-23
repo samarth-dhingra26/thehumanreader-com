@@ -23,6 +23,21 @@ export default function LoginForm() {
 
     try {
       await signIn({ username: email, password });
+
+      const tier = searchParams.get("tier");
+      if (tier) {
+        const response = await fetch("/api/checkout/create-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tier }),
+        });
+        const data = await response.json();
+        if (response.ok && data.url) {
+          window.location.href = data.url;
+          return;
+        }
+      }
+
       router.push(searchParams.get("redirect") || "/dashboard");
     } catch {
       setStatus("error");
@@ -63,8 +78,8 @@ export default function LoginForm() {
         </div>
       </form>
       <p className={styles.hint}>
-        Don&rsquo;t have an account? <a href="/#free-review">Get a free paragraph reviewed</a> to
-        create one.
+        Don&rsquo;t have an account?{" "}
+        <a href={`/signup?${searchParams.toString()}`}>Create one</a>.
       </p>
     </div>
   );

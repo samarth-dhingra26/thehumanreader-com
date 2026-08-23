@@ -1,92 +1,72 @@
-.breakout {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-}
-
 .wrap {
-  max-width: 64rem;
-  margin: 0 auto;
-  border-top: 1px solid var(--border);
-  margin-top: 1.4rem;
-  padding: 1.4rem 2rem 0;
-}
-
-@media (max-width: 30rem) {
-  .wrap {
-    padding: 1.4rem 1.2rem 0;
-  }
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  padding: 1.4rem;
 }
 
 .heading {
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin-bottom: 0.4rem;
-  text-align: center;
 }
 
 .subheading {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--muted);
-  text-align: center;
   margin-bottom: 1.2rem;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.9rem;
-}
-
-@media (max-width: 56rem) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  }
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .tier {
-  position: relative;
   border: 1px solid var(--border);
   border-radius: 0.7rem;
-  padding: 1.6rem 1rem 1.1rem;
-  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.badge {
-  position: absolute;
-  top: -0.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: var(--accent-contrast);
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  white-space: nowrap;
+.tierTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .tierName {
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.85rem;
-  margin-bottom: 0.4rem;
+}
+
+.badge {
+  flex-shrink: 0;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
 }
 
 .tierPrice {
   font-family: var(--font-serif);
-  font-size: 1.6rem;
-  margin-bottom: 0.4rem;
+  font-size: 1.5rem;
 }
 
 .tierDescription {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--muted);
-  margin-bottom: 0.9rem;
-  min-height: 2.2rem;
+  line-height: 1.4;
 }
 
 .error {
@@ -95,22 +75,4 @@
   color: var(--muted);
   text-align: center;
   margin-top: 0.8rem;
-}
-
-.confirmation {
-  border-top: 1px solid var(--border);
-  margin-top: 1.4rem;
-  padding-top: 1.4rem;
-  text-align: center;
-}
-
-.confirmationTitle {
-  font-size: 1.05rem;
-  margin-bottom: 0.5rem;
-}
-
-.confirmationBody {
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  color: var(--muted);
 }

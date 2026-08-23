@@ -3,10 +3,12 @@
 import { useState, type FormEvent } from "react";
 import { getCurrentUser, signIn, signUp, confirmSignUp, resendSignUpCode } from "aws-amplify/auth";
 import { dataClient } from "../../lib/amplify/client";
+import { CONTACT_EMAIL } from "../../lib/config";
+import ContactForm from "./ContactForm";
 import Button from "../ui/Button";
 import styles from "./FormShell.module.css";
 
-type Stage = "input" | "auth" | "verify" | "success";
+type Stage = "input" | "auth" | "verify" | "success" | "limitReached";
 
 export default function ParagraphReviewForm() {
   const [stage, setStage] = useState<Stage>("input");
@@ -34,11 +36,21 @@ export default function ParagraphReviewForm() {
   async function handleInputSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
+    let user;
     try {
-      const user = await getCurrentUser();
-      await createSubmission(user.signInDetails?.loginId ?? email);
+      user = await getCurrentUser();
     } catch {
       setStage("auth");
+      setIsSubmitting(false);
+      return;
+    }
+    try {
+      const { data: existing } = await dataClient.models.Submission.list();
+      if (existing.length > 0) {
+        setStage("limitReached");
+      } else {
+        await createSubmission(user.signInDetails?.loginId ?? email);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -91,6 +103,26 @@ export default function ParagraphReviewForm() {
     } finally {
       setIsResending(false);
     }
+  }
+
+  if (stage === "limitReached") {
+    return (
+      <div>
+        <p className={`${styles.status}`}>
+          You&rsquo;ve already used your one free paragraph review with this email. Purchase a
+          package below to get your full essay or PIQ reviewed — or send us a quick question and
+          we&rsquo;ll get back to you.
+        </p>
+        <div className={styles.actions} style={{ margin: "1rem 0 1.6rem" }}>
+          <Button href="/#pricing">See packages</Button>
+        </div>
+        <p className={styles.microcopy} style={{ marginBottom: "0.8rem" }}>
+          Prefer to just ask us something? Email{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> or use the form below.
+        </p>
+        <ContactForm />
+      </div>
+    );
   }
 
   if (stage === "success") {

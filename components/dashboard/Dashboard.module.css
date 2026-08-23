@@ -1,5 +1,5 @@
 .main {
-  max-width: 38rem;
+  max-width: 64rem;
   margin: 0 auto;
   padding: 4rem 2rem 6rem;
 }
@@ -15,7 +15,67 @@
   color: var(--muted);
 }
 
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (max-width: 56rem) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timelineItem {
+  display: flex;
+  gap: 1rem;
+}
+
+.timelineRail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.4rem;
+}
+
+.timelineDot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.timelineLine {
+  flex: 1;
+  width: 1px;
+  background: var(--border);
+  margin-top: 0.3rem;
+}
+
+.timelineItem:last-child .timelineLine {
+  display: none;
+}
+
+.timelineDate {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
 .card {
+  flex: 1;
+  min-width: 0;
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 1.6rem;
@@ -52,10 +112,22 @@
   white-space: pre-wrap;
 }
 
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 56rem) {
+  .sidebar {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
 .upsell {
-  border-top: 1px solid var(--border);
-  margin-top: 1.4rem;
-  padding-top: 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  padding: 1.4rem;
   text-align: center;
 }
 
@@ -68,5 +140,4 @@
   font-family: var(--font-sans);
   font-size: 0.88rem;
   color: var(--muted);
-  margin-bottom: 1rem;
 }

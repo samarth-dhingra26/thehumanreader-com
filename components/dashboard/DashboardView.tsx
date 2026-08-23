@@ -6,6 +6,7 @@ import { dataClient } from "../../lib/amplify/client";
 import type { Schema } from "../../amplify/data/resource";
 import SubmissionStatus from "./SubmissionStatus";
 import PricingGrid from "./PricingGrid";
+import { formatDate } from "../../lib/date/format";
 import styles from "./Dashboard.module.css";
 
 type Submission = Schema["Submission"]["type"];
@@ -53,45 +54,66 @@ export default function DashboardView() {
 
   const hasPurchase = purchases.length > 0;
   const awaitingConfirmation = !hasPurchase && searchParams.get("purchase") === "success";
+  const hasReviewed = submissions.some((s) => s.status === "REVIEWED");
 
   return (
-    <div>
-      {submissions.map((submission) => {
-        const review = reviews[submission.id];
-        return (
-          <div className={styles.card} key={submission.id}>
-            <SubmissionStatus status={submission.status} submittedAt={submission.submittedAt} />
-            <p className={styles.paragraph}>{submission.paragraphText}</p>
-            {review && (
-              <>
-                <p className={styles.reviewLabel}>Your reader&rsquo;s feedback</p>
-                <p className={styles.reviewText}>{review.reviewText}</p>
-              </>
-            )}
+    <div className={styles.layout}>
+      <div className={styles.timeline}>
+        {submissions.map((submission) => {
+          const review = reviews[submission.id];
+          return (
+            <div className={styles.timelineItem} key={submission.id}>
+              <div className={styles.timelineRail}>
+                <span className={styles.timelineDot} />
+                <span className={styles.timelineLine} />
+              </div>
+              <div className={styles.card}>
+                <div className={styles.timelineDate}>{formatDate(submission.submittedAt)}</div>
+                <SubmissionStatus status={submission.status} submittedAt={submission.submittedAt} />
+                <p className={styles.paragraph}>{submission.paragraphText}</p>
+                {review && (
+                  <>
+                    <div className={styles.timelineDate}>{formatDate(review.reviewedAt)}</div>
+                    <p className={styles.reviewLabel}>Your reader&rsquo;s feedback</p>
+                    <p className={styles.reviewText}>{review.reviewText}</p>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className={styles.sidebar}>
+        {hasPurchase && (
+          <div className={styles.upsell}>
+            <h3 className={styles.upsellTitle}>You&rsquo;re all set</h3>
+            <p className={styles.upsellBody}>
+              We&rsquo;ve got your purchase — a matched reader will follow up by email to get
+              started on your full application.
+            </p>
           </div>
-        );
-      })}
+        )}
 
-      {hasPurchase && (
-        <div className={styles.upsell}>
-          <h3 className={styles.upsellTitle}>You&rsquo;re all set</h3>
-          <p className={styles.upsellBody}>
-            We&rsquo;ve got your purchase — a matched reader will follow up by email to get
-            started on your full application.
-          </p>
-        </div>
-      )}
+        {!hasPurchase && awaitingConfirmation && (
+          <div className={styles.upsell}>
+            <h3 className={styles.upsellTitle}>Confirming your payment…</h3>
+            <p className={styles.upsellBody}>This usually takes just a few seconds.</p>
+          </div>
+        )}
 
-      {!hasPurchase && awaitingConfirmation && (
-        <div className={styles.upsell}>
-          <h3 className={styles.upsellTitle}>Confirming your payment…</h3>
-          <p className={styles.upsellBody}>This usually takes just a few seconds.</p>
-        </div>
-      )}
+        {!hasPurchase && !awaitingConfirmation && hasReviewed && <PricingGrid />}
 
-      {!hasPurchase && !awaitingConfirmation && submissions.some((s) => s.status === "REVIEWED") && (
-        <PricingGrid />
-      )}
+        {!hasPurchase && !awaitingConfirmation && !hasReviewed && (
+          <div className={styles.upsell}>
+            <h3 className={styles.upsellTitle}>Full application packages</h3>
+            <p className={styles.upsellBody}>
+              Once your free paragraph review is complete, you&rsquo;ll be able to choose a
+              package to get every essay and PIQ reviewed.
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

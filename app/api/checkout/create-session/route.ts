@@ -18,13 +18,25 @@ export async function POST(request: NextRequest) {
 
   const priceId = process.env[tier.priceEnvVar];
   if (!priceId) {
+    console.error(
+      "DEBUG missing price env var",
+      tier.priceEnvVar,
+      "stripeKeys:",
+      Object.keys(process.env).filter((k) => k.startsWith("STRIPE"))
+    );
     return NextResponse.json({ error: "Tier not configured" }, { status: 500 });
   }
 
   const { data: profiles } = await serverDataClient.models.UserProfile.list();
-  const profile = profiles[0];
+  const profile =
+    profiles[0] ??
+    (
+      await serverDataClient.models.UserProfile.create({
+        consentGivenAt: new Date().toISOString(),
+      })
+    ).data;
   if (!profile || !profile.owner) {
-    return NextResponse.json({ error: "No profile found for this account" }, { status: 400 });
+    return NextResponse.json({ error: "Could not set up your account" }, { status: 400 });
   }
   const owner = profile.owner;
 

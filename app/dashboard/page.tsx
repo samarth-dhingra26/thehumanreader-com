@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import SiteHeader from "../../components/layout/SiteHeader";
 import SiteFooter from "../../components/layout/SiteFooter";
 import DashboardView from "../../components/dashboard/DashboardView";
-import SignOutButton from "../../components/auth/SignOutButton";
 import styles from "../../components/dashboard/Dashboard.module.css";
 
 export default function DashboardPage() {
@@ -14,7 +13,6 @@ export default function DashboardPage() {
         <Suspense>
           <DashboardView />
         </Suspense>
-        <SignOutButton />
       </main>
       <SiteFooter />
     </>
