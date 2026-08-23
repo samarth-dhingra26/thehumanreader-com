@@ -28,29 +28,31 @@ export default function PricingGrid() {
   }
 
   return (
-    <div className={styles.wrap}>
-      <h3 className={styles.heading}>Want feedback like this on your whole essay?</h3>
-      <p className={styles.subheading}>
-        Choose a package to get a matched human reader on your entire application.
-      </p>
-      <div className={styles.grid}>
-        {TIERS.map((tier) => (
-          <div className={styles.tier} key={tier.key}>
-            {tier.mostPopular && <span className={styles.badge}>Most popular</span>}
-            <div className={styles.tierName}>{tier.name}</div>
-            <div className={styles.tierPrice}>{formatPrice(tier.priceCents)}</div>
-            <div className={styles.tierDescription}>{tier.description}</div>
-            <Button
-              variant={tier.mostPopular ? "primary" : "secondary"}
-              onClick={() => handleBuy(tier.key)}
-              disabled={buyingTier !== null}
-            >
-              {buyingTier === tier.key ? "Redirecting…" : "Choose"}
-            </Button>
-          </div>
-        ))}
+    <div className={styles.breakout}>
+      <div className={styles.wrap}>
+        <h3 className={styles.heading}>Want feedback like this on your whole essay?</h3>
+        <p className={styles.subheading}>
+          Choose a package to get a matched human reader on your entire application.
+        </p>
+        <div className={styles.grid}>
+          {TIERS.map((tier) => (
+            <div className={styles.tier} key={tier.key}>
+              {tier.mostPopular && <span className={styles.badge}>Most popular</span>}
+              <div className={styles.tierName}>{tier.name}</div>
+              <div className={styles.tierPrice}>{formatPrice(tier.priceCents)}</div>
+              <div className={styles.tierDescription}>{tier.description}</div>
+              <Button
+                variant={tier.mostPopular ? "primary" : "secondary"}
+                onClick={() => handleBuy(tier.key)}
+                disabled={buyingTier !== null}
+              >
+                {buyingTier === tier.key ? "Redirecting…" : "Choose"}
+              </Button>
+            </div>
+          ))}
+        </div>
+        {error && <p className={styles.error}>{error}</p>}
       </div>
-      {error && <p className={styles.error}>{error}</p>}
     </div>
   );
 }

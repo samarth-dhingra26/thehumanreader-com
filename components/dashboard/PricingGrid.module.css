@@ -1,7 +1,21 @@
+.breakout {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
 .wrap {
+  max-width: 64rem;
+  margin: 0 auto;
   border-top: 1px solid var(--border);
   margin-top: 1.4rem;
-  padding-top: 1.4rem;
+  padding: 1.4rem 2rem 0;
+}
+
+@media (max-width: 30rem) {
+  .wrap {
+    padding: 1.4rem 1.2rem 0;
+  }
 }
 
 .heading {
@@ -20,15 +34,21 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.9rem;
+}
+
+@media (max-width: 56rem) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
 }
 
 .tier {
   position: relative;
   border: 1px solid var(--border);
   border-radius: 0.7rem;
-  padding: 1.1rem 1rem;
+  padding: 1.6rem 1rem 1.1rem;
   text-align: center;
 }
 
@@ -45,6 +65,7 @@
   text-transform: uppercase;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
+  white-space: nowrap;
 }
 
 .tierName {
