@@ -20,7 +20,7 @@ export default function PricingSection() {
         body: JSON.stringify({ tier }),
       });
       if (response.status === 401) {
-        window.location.href = `/signup?tier=${encodeURIComponent(tier)}&redirect=${encodeURIComponent(
+        window.location.href = `/buy?tier=${encodeURIComponent(tier)}&redirect=${encodeURIComponent(
           "/#pricing"
         )}`;
         return;

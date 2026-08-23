@@ -8,6 +8,7 @@ import { notifySubmission } from "./functions/notify-submission/resource";
 import { notifyReviewComplete } from "./functions/notify-review-complete/resource";
 import { stripeWebhook } from "./functions/stripe-webhook/resource";
 import { createCheckoutSession } from "./functions/create-checkout-session/resource";
+import { quickCheckout } from "./functions/quick-checkout/resource";
 
 const backend = defineBackend({
   auth,
@@ -16,11 +17,13 @@ const backend = defineBackend({
   notifyReviewComplete,
   stripeWebhook,
   createCheckoutSession,
+  quickCheckout,
 });
 
 const submissionTable = backend.data.resources.tables["Submission"];
 const reviewTable = backend.data.resources.tables["Review"];
 const purchaseTable = backend.data.resources.tables["Purchase"];
+const userProfileTable = backend.data.resources.tables["UserProfile"];
 
 // Notify the founder on every new paragraph submission.
 backend.notifySubmission.resources.lambda.addEventSource(
@@ -76,8 +79,29 @@ const checkoutFunctionUrl = backend.createCheckoutSession.resources.lambda.addFu
   authType: FunctionUrlAuthType.NONE,
 });
 
+// Quick checkout: create an account for a purchase-only email, letting
+// Cognito's own built-in invitation email hand the visitor their first
+// login credentials — never our own code.
+userProfileTable.grantWriteData(backend.quickCheckout.resources.lambda);
+
+const quickCheckoutLambda = backend.quickCheckout.resources.lambda as LambdaFunction;
+quickCheckoutLambda.addEnvironment("USER_POOL_ID", backend.auth.resources.userPool.userPoolId);
+quickCheckoutLambda.addEnvironment("USERPROFILE_TABLE_NAME", userProfileTable.tableName);
+quickCheckoutLambda.addToRolePolicy(
+  new PolicyStatement({
+    actions: ["cognito-idp:AdminGetUser", "cognito-idp:AdminCreateUser"],
+    resources: [backend.auth.resources.userPool.userPoolArn],
+  })
+);
+
+const quickCheckoutFunctionUrl = backend.quickCheckout.resources.lambda.addFunctionUrl({
+  authType: FunctionUrlAuthType.NONE,
+});
+
 backend.addOutput({
   custom: {
     checkoutFunctionUrl: checkoutFunctionUrl.url,
+    quickCheckoutFunctionUrl: quickCheckoutFunctionUrl.url,
   },
 });
+

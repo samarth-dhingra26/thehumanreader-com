@@ -1,15 +1,15 @@
 import { Suspense } from "react";
 import SiteHeader from "../../components/layout/SiteHeader";
 import SiteFooter from "../../components/layout/SiteFooter";
-import SignupForm from "../../components/auth/SignupForm";
+import QuickBuyForm from "../../components/auth/QuickBuyForm";
 
-export default function SignupPage() {
+export default function BuyPage() {
   return (
     <>
       <SiteHeader />
       <main>
         <Suspense>
-          <SignupForm />
+          <QuickBuyForm />
         </Suspense>
       </main>
       <SiteFooter />
