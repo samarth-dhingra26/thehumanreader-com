@@ -13,6 +13,16 @@
 .empty {
   font-family: var(--font-sans);
   color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  margin: 2rem 0 1rem;
+}
+
+.sectionTitle:first-child {
+  margin-top: 0;
 }
 
 .card {

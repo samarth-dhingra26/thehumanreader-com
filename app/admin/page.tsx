@@ -8,7 +8,7 @@ export default function AdminPage() {
     <>
       <SiteHeader />
       <main className={styles.main}>
-        <h1 className={styles.title}>Pending reviews</h1>
+        <h1 className={styles.title}>Reviews</h1>
         <AdminReviewList />
       </main>
       <SiteFooter />

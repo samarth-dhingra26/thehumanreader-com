@@ -34,6 +34,22 @@ const schema = a.schema({
       allow.owner().to(["read"]),
       allow.group("Admins").to(["create", "read", "update"]),
     ]),
+
+  Purchase: a
+    .model({
+      owner: a.string().required(),
+      userEmail: a.string().required(),
+      tier: a.enum(["SINGLE_ESSAY", "ONE_SCHOOL", "THREE_SCHOOL", "SIX_SCHOOL", "UNLIMITED"]),
+      amountCents: a.integer().required(),
+      stripeCheckoutSessionId: a.string().required(),
+      stripePaymentIntentId: a.string(),
+      status: a.enum(["PENDING", "COMPLETED"]),
+      completedAt: a.datetime(),
+    })
+    .authorization((allow) => [
+      allow.owner().to(["read"]),
+      allow.group("Admins").to(["read"]),
+    ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
