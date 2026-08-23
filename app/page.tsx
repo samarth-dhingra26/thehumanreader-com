@@ -7,6 +7,7 @@ import FreeScoreCta from "../components/sections/FreeScoreCta";
 import FreeReviewCta from "../components/sections/FreeReviewCta";
 import ServicesOverview from "../components/sections/ServicesOverview";
 import HowMatchingWorks from "../components/sections/HowMatchingWorks";
+import PricingSection from "../components/sections/PricingSection";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <FreeScoreCta />
         <ServicesOverview />
         <HowMatchingWorks />
+        <PricingSection />
       </main>
       <SiteFooter />
     </>

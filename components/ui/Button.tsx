@@ -2,9 +2,16 @@ import styles from "./Button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "accent" | "ghostLight";
   href?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+const VARIANT_CLASS = {
+  primary: "primary",
+  secondary: "secondary",
+  accent: "accent",
+  ghostLight: "ghostLight",
+} as const;
 
 export default function Button({
   children,
@@ -12,9 +19,7 @@ export default function Button({
   href,
   ...rest
 }: ButtonProps) {
-  const className = `${styles.button} ${
-    variant === "primary" ? styles.primary : styles.secondary
-  }`;
+  const className = `${styles.button} ${styles[VARIANT_CLASS[variant]]}`;
 
   if (href) {
     return (

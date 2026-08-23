@@ -33,3 +33,15 @@
   color: var(--fg);
   border-color: var(--border);
 }
+
+.accent {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-color: var(--accent);
+}
+
+.ghostLight {
+  background: transparent;
+  color: var(--ink-fg);
+  border-color: rgba(255, 255, 255, 0.35);
+}

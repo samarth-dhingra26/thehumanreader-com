@@ -15,6 +15,7 @@ export default async function SiteHeader() {
         <a href="/#free-review">Get a free review</a>
         <a href="/#services">Services</a>
         <a href="/#how-it-works">How it works</a>
+        <a href="/#pricing">Pricing</a>
       </nav>
       <div className={styles.actions}>
         {user ? (
