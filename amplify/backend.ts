@@ -7,6 +7,7 @@ import { data } from "./data/resource";
 import { notifySubmission } from "./functions/notify-submission/resource";
 import { notifyReviewComplete } from "./functions/notify-review-complete/resource";
 import { stripeWebhook } from "./functions/stripe-webhook/resource";
+import { createCheckoutSession } from "./functions/create-checkout-session/resource";
 
 const backend = defineBackend({
   auth,
@@ -14,6 +15,7 @@ const backend = defineBackend({
   notifySubmission,
   notifyReviewComplete,
   stripeWebhook,
+  createCheckoutSession,
 });
 
 const submissionTable = backend.data.resources.tables["Submission"];
@@ -65,4 +67,17 @@ purchaseTable.grantWriteData(backend.stripeWebhook.resources.lambda);
 
 backend.stripeWebhook.resources.lambda.addFunctionUrl({
   authType: FunctionUrlAuthType.NONE,
+});
+
+// Checkout session creation: needs the Stripe secret key, which Amplify
+// Hosting's env vars don't reliably surface to the Next.js SSR runtime —
+// this Function's env vars/secrets go through CDK instead, which is reliable.
+const checkoutFunctionUrl = backend.createCheckoutSession.resources.lambda.addFunctionUrl({
+  authType: FunctionUrlAuthType.NONE,
+});
+
+backend.addOutput({
+  custom: {
+    checkoutFunctionUrl: checkoutFunctionUrl.url,
+  },
 });

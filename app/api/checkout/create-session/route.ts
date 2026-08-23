@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerUser } from "../../../../lib/amplify/session";
 import { serverDataClient } from "../../../../lib/amplify/server-data";
-import { getStripeClient } from "../../../../lib/stripe/server";
 import { getTier } from "../../../../lib/stripe/tiers";
+import outputs from "../../../../amplify_outputs.json";
 
 export async function POST(request: NextRequest) {
   const user = await getServerUser();
@@ -14,17 +14,6 @@ export async function POST(request: NextRequest) {
   const tier = getTier(tierKey);
   if (!tier) {
     return NextResponse.json({ error: "Unknown tier" }, { status: 400 });
-  }
-
-  const priceId = process.env[tier.priceEnvVar];
-  if (!priceId) {
-    console.error(
-      "DEBUG missing price env var",
-      tier.priceEnvVar,
-      "stripeKeys:",
-      Object.keys(process.env).filter((k) => k.startsWith("STRIPE"))
-    );
-    return NextResponse.json({ error: "Tier not configured" }, { status: 500 });
   }
 
   const { data: profiles } = await serverDataClient.models.UserProfile.list();
@@ -43,24 +32,25 @@ export async function POST(request: NextRequest) {
   const userEmail = user.signInDetails?.loginId ?? "";
   const origin = request.nextUrl.origin;
 
-  const stripe = getStripeClient();
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${origin}/dashboard?purchase=success`,
-    cancel_url: `${origin}/dashboard?purchase=cancelled`,
-    client_reference_id: owner,
-    customer_email: userEmail || undefined,
-    metadata: {
-      owner,
-      tier: tier.key,
-      userEmail,
-    },
-  });
-
-  if (!session.url) {
-    return NextResponse.json({ error: "Could not create checkout session" }, { status: 500 });
+  const functionUrl = (outputs as { custom?: { checkoutFunctionUrl?: string } }).custom
+    ?.checkoutFunctionUrl;
+  if (!functionUrl) {
+    return NextResponse.json({ error: "Checkout not configured" }, { status: 500 });
   }
 
-  return NextResponse.json({ url: session.url });
+  const response = await fetch(functionUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tier: tier.key, owner, email: userEmail, origin }),
+  });
+  const data = await response.json();
+
+  if (!response.ok || !data.url) {
+    return NextResponse.json(
+      { error: data.error ?? "Could not create checkout session" },
+      { status: response.status || 500 }
+    );
+  }
+
+  return NextResponse.json({ url: data.url });
 }
