@@ -8,7 +8,7 @@
   position: relative;
   border-radius: 1.5rem;
   overflow: hidden;
-  min-height: clamp(26rem, 46vw, 36rem);
+  min-height: clamp(24rem, 42vw, 32rem);
   box-shadow: 0 2.5rem 4rem -1.75rem rgba(26, 24, 21, 0.5);
 }
 
@@ -184,7 +184,7 @@
   }
 
   .frame {
-    min-height: 26rem;
+    min-height: 38rem;
     border-radius: 1.1rem;
   }
 
