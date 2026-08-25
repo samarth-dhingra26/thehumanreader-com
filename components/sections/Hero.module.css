@@ -17,11 +17,11 @@
   inset: 0;
   background: linear-gradient(
     100deg,
-    rgba(10, 9, 15, 0.97) 0%,
-    rgba(10, 9, 15, 0.95) 42%,
-    rgba(10, 9, 15, 0.75) 62%,
-    rgba(10, 9, 15, 0.3) 82%,
-    rgba(10, 9, 15, 0.08) 100%
+    rgba(6, 5, 10, 0.98) 0%,
+    rgba(6, 5, 10, 0.97) 48%,
+    rgba(6, 5, 10, 0.85) 66%,
+    rgba(6, 5, 10, 0.45) 84%,
+    rgba(6, 5, 10, 0.1) 100%
   );
 }
 
@@ -29,7 +29,7 @@
   position: relative;
   z-index: 1;
   max-width: 36rem;
-  padding: 2.6rem 2.4rem;
+  padding: 2.6rem 2.4rem 2.6rem 3.8rem;
   color: var(--ink-fg);
 }
 
@@ -75,13 +75,6 @@
   flex-wrap: wrap;
   gap: 0.7rem;
   margin-bottom: 0.7rem;
-}
-
-.caption {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
-  color: var(--ink-muted);
 }
 
 .inlineStats {
@@ -156,7 +149,7 @@
 @media (max-width: 56rem) {
   .content {
     max-width: none;
-    padding-bottom: 4.2rem;
+    padding: 2.6rem 2.4rem 4.2rem;
   }
 
   .frame {

@@ -39,12 +39,6 @@ export default function Hero() {
               Get your free Application Score
             </Button>
           </div>
-          <p className={`${styles.caption} ${styles.desktopOnly}`}>
-            No credit card. No AI-generated feedback. Just a real reader.
-          </p>
-          <p className={`${styles.caption} ${styles.mobileOnly}`}>
-            No credit card. Just a real reader.
-          </p>
           <div className={styles.inlineStats}>
             <span>All-human review</span>
             <span>Free to try</span>

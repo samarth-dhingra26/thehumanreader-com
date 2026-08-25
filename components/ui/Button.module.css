@@ -41,7 +41,8 @@
 }
 
 .ghostLight {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.08);
   color: var(--ink-fg);
-  border-color: rgba(255, 255, 255, 0.35);
+  border-width: 1.5px;
+  border-color: rgba(255, 255, 255, 0.55);
 }
