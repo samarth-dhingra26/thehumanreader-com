@@ -1,8 +1,8 @@
 .bar {
   background: var(--ink);
   color: var(--ink-fg);
-  padding: 3rem 2rem;
-  margin-top: 4rem;
+  padding: 1.8rem 2rem;
+  margin-top: 1.6rem;
 }
 
 .grid {
@@ -26,8 +26,8 @@
 
 .number {
   font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
-  margin-bottom: 0.3rem;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  margin-bottom: 0.25rem;
 }
 
 .label {

@@ -43,10 +43,10 @@ export default function Hero() {
             <span>All-human review</span>
             <span>Free to try</span>
             <span>3-day turnaround</span>
+            <span className={styles.tagline}>
+              become <strong>unmistakably you.</strong>
+            </span>
           </div>
-          <p className={styles.tagline}>
-            become <strong>unmistakably you.</strong>
-          </p>
         </div>
         <div className={styles.statusCard}>
           <span className={styles.statusDot} />
