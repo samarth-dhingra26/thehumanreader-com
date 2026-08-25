@@ -8,7 +8,7 @@
   position: relative;
   border-radius: 1.5rem;
   overflow: hidden;
-  min-height: clamp(20rem, 34vw, 28rem);
+  min-height: clamp(26rem, 46vw, 36rem);
   box-shadow: 0 2.5rem 4rem -1.75rem rgba(26, 24, 21, 0.5);
 }
 
@@ -70,6 +70,10 @@
   margin-bottom: 1.1rem;
   max-width: 34rem;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
+.subhead.mobileOnly {
+  color: var(--ink-fg);
 }
 
 .ctas {
@@ -164,16 +168,6 @@
 
   .frame {
     min-height: clamp(24rem, 68vw, 32rem);
-  }
-
-  .scrim {
-    background: linear-gradient(
-      160deg,
-      rgba(10, 9, 15, 0.85) 0%,
-      rgba(10, 9, 15, 0.6) 38%,
-      rgba(10, 9, 15, 0.3) 58%,
-      rgba(10, 9, 15, 0.05) 78%
-    );
   }
 
   .statusCard {

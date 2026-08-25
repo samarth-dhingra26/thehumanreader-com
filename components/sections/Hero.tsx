@@ -28,8 +28,7 @@ export default function Hero() {
             additional information, portfolios, scholarship essays, and more!
           </p>
           <p className={`${styles.subhead} ${styles.mobileOnly}`}>
-            The Human Reader Coach works 1-on-1 with you on every essay,
-            activity list, and scholarship application.
+            The Human Reader Coach works 1-on-1 with you on every essay.
           </p>
           <div className={styles.ctas}>
             <Button href="#free-review" variant="accent">
