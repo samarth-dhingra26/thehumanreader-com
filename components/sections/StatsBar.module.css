@@ -33,6 +33,10 @@
 }
 
 @media (max-width: 40rem) {
+  .bar {
+    margin-top: 1rem;
+  }
+
   .grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;

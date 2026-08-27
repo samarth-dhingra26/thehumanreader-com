@@ -66,6 +66,10 @@ export default function Hero() {
             priority
           />
           <div className={styles.mobileShadow} />
+          <span className={styles.mobilePhotoBadge}>
+            <span className={styles.dot} />
+            Human Readers, Not AI
+          </span>
           <div className={styles.mobileCtas}>
             <Button href="#free-review" variant="accent">
               Get one paragraph reviewed, free
@@ -76,10 +80,6 @@ export default function Hero() {
           </div>
         </div>
         <div className={styles.mobileTextBlock}>
-          <span className={styles.mobileBadge}>
-            <span className={styles.dot} />
-            Human Readers, Not AI
-          </span>
           <h1 className={styles.mobileTitle}>Colleges want your essay to be unmistakably yours.</h1>
           <p className={styles.mobileSubhead}>
             The Human Reader Coach works 1-on-1 with you on every essay.
