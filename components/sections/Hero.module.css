@@ -160,13 +160,40 @@
   color: var(--ink-muted);
 }
 
-/* Mobile hero: photo banner + plain text block, no overlay/scrim needed. */
+/* Mobile hero: photo banner with CTAs overlaid, plain text block below. */
 
 .mobilePhoto {
   position: relative;
   aspect-ratio: 4 / 3;
   border-radius: 1.2rem;
   overflow: hidden;
+}
+
+.mobileShadow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 9, 15, 0.88) 0%,
+    rgba(10, 9, 15, 0.55) 30%,
+    rgba(10, 9, 15, 0.15) 55%,
+    rgba(10, 9, 15, 0) 70%
+  );
+}
+
+.mobileCtas {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.mobileCtas a {
+  width: 100%;
 }
 
 .mobileTextBlock {

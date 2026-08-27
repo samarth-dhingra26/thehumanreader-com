@@ -1,9 +1,9 @@
 import styles from "./StatsBar.module.css";
 
 const STATS = [
-  { number: "100%", label: "Human-written feedback" },
-  { number: "0", label: "AI-generated reviews" },
-  { number: "3", label: "Business-day turnaround" },
+  { number: "100%", label: "Human‑written feedback" },
+  { number: "0", label: "AI‑generated reviews" },
+  { number: "3", label: "Business‑day turnaround" },
   { number: "$0", label: "To try it" },
 ];
 
