@@ -47,6 +47,18 @@
   white-space: nowrap;
 }
 
+.desktopLogin {
+  display: inline-flex;
+}
+
+.loginLink {
+  display: none;
+}
+
+.freeReviewPill {
+  display: none;
+}
+
 @media (max-width: 30rem) {
   .header {
     padding: 0.8rem 1.2rem;
@@ -64,6 +76,30 @@
   .actions a {
     padding: 0.55rem 1.1rem;
     font-size: 0.78rem;
+  }
+
+  .desktopLogin {
+    display: none;
+  }
+
+  .loginLink {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .freeReviewPill {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--fg);
+    border-radius: 999px;
+    text-decoration: none;
   }
 }
 

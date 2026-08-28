@@ -12,7 +12,7 @@
   display: none;
 }
 
-.mobileHero > a {
+.mobileCtas > a {
   width: 100%;
 }
 
@@ -164,8 +164,37 @@
   color: var(--ink-muted);
 }
 
-/* Mobile hero: plain text block (badge/headline/subhead/CTA), decorative
-   photo below with no overlay — no scrim/legibility tuning needed. */
+/* Mobile hero: full-bleed photo with a dark scrim and badge/headline/
+   subhead/CTAs overlaid directly on it — mirrors the desktop
+   .frame/.scrim/.content pattern, mobile-tuned. */
+
+.mobileFrame {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  min-height: clamp(26rem, 130vw, 34rem);
+  box-shadow: 0 2rem 3rem -1.5rem rgba(26, 24, 21, 0.5);
+}
+
+.mobileScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 7, 12, 0.72) 0%,
+    rgba(8, 7, 12, 0.8) 45%,
+    rgba(8, 7, 12, 0.92) 100%
+  );
+}
+
+.mobileContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.6rem 1.4rem 1.8rem;
+}
 
 .mobileBadge {
   display: inline-flex;
@@ -174,42 +203,41 @@
   gap: 0.5rem;
   font-family: var(--font-sans);
   font-size: 0.75rem;
-  color: var(--muted);
-  border: 1px solid var(--border);
+  color: var(--ink-fg);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
-  margin-bottom: 0.9rem;
+  margin-bottom: 1.4rem;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .mobileTitle {
-  color: var(--fg);
-  font-size: 1.7rem;
+  color: var(--ink-fg);
+  font-size: 2.1rem;
+  line-height: 1.1;
   letter-spacing: -0.01em;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.mobileTitle em {
+  font-style: italic;
+  font-family: var(--font-sans);
 }
 
 .mobileSubhead {
-  color: var(--muted);
+  color: var(--ink-muted);
   font-size: 0.92rem;
   line-height: 1.5;
-  margin-bottom: 1.2rem;
+  margin-bottom: auto;
+  padding-bottom: 1.6rem;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
 
-.mobileCaption {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  color: var(--muted);
-  text-align: center;
-  margin-top: 0.7rem;
-}
-
-.mobilePhoto {
-  position: relative;
-  width: 100%;
-  height: 16rem;
-  border-radius: 1.2rem;
-  overflow: hidden;
-  margin-top: 1.6rem;
+.mobileCtas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
 @media (max-width: 56rem) {

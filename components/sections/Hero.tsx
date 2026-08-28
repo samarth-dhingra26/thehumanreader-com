@@ -56,26 +56,36 @@ export default function Hero() {
       </div>
 
       <div className={styles.mobileHero}>
-        <span className={styles.mobileBadge}>
-          <span className={styles.dot} />
-          Human Readers, Not AI
-        </span>
-        <h1 className={styles.mobileTitle}>Colleges want your essay to be unmistakably yours.</h1>
-        <p className={styles.mobileSubhead}>
-          The Human Reader Coach works 1-on-1 with you on every essay.
-        </p>
-        <Button href="#free-review" variant="accent">
-          Get one paragraph reviewed, free
-        </Button>
-        <p className={styles.mobileCaption}>No card. No AI. A real reader replies in 3 days.</p>
-        <div className={styles.mobilePhoto}>
+        <div className={styles.mobileFrame}>
           <Image
-            src="/essay-hero.jpg"
-            alt="A handwritten college application essay draft with pencil notes in the margin"
+            src="/hero-reader.png"
+            alt="Two students celebrating in graduation caps and gowns"
             fill
             sizes="100vw"
             style={{ objectFit: "cover" }}
+            priority
           />
+          <div className={styles.mobileScrim} />
+          <div className={styles.mobileContent}>
+            <span className={styles.mobileBadge}>
+              <span className={styles.dot} />
+              Human Readers, Not AI
+            </span>
+            <h1 className={styles.mobileTitle}>
+              Colleges want your essay to be <em>unmistakably</em> yours.
+            </h1>
+            <p className={styles.mobileSubhead}>
+              The Human Reader Coach works 1-on-1 with you on every essay.
+            </p>
+            <div className={styles.mobileCtas}>
+              <Button href="#free-review" variant="accent">
+                Get one paragraph reviewed, free
+              </Button>
+              <Button href="#free-score" variant="ghostLight">
+                Get your free Application Score
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

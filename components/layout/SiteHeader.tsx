@@ -26,9 +26,19 @@ export default async function SiteHeader() {
             <NavSignOutLink className={styles.signOutLink} />
           </>
         ) : (
-          <Button href="/login" variant="secondary">
-            Log in
-          </Button>
+          <>
+            <span className={styles.desktopLogin}>
+              <Button href="/login" variant="secondary">
+                Log in
+              </Button>
+            </span>
+            <a className={styles.loginLink} href="/login">
+              Log in
+            </a>
+            <a className={styles.freeReviewPill} href="/#free-review">
+              Free review
+            </a>
+          </>
         )}
       </div>
     </header>
