@@ -9,14 +9,12 @@ import ServicesOverview from "../components/sections/ServicesOverview";
 import HowMatchingWorks from "../components/sections/HowMatchingWorks";
 import PricingSection from "../components/sections/PricingSection";
 import ClosingCta from "../components/sections/ClosingCta";
-import StickyMobileCta from "../components/sections/StickyMobileCta";
-import styles from "./HomePage.module.css";
 
 export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main className={styles.main}>
+      <main>
         <Hero />
         <StatsBar />
         <Differentiation />
@@ -28,7 +26,6 @@ export default function Home() {
         <ClosingCta />
       </main>
       <SiteFooter />
-      <StickyMobileCta />
     </>
   );
 }

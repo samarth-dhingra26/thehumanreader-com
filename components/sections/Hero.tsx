@@ -77,15 +77,15 @@ export default function Hero() {
             <p className={styles.mobileSubhead}>
               The Human Reader Coach works 1-on-1 with you on every essay.
             </p>
-            <div className={styles.mobileCtas}>
-              <Button href="#free-review" variant="accent">
-                Get one paragraph reviewed, free
-              </Button>
-              <Button href="#free-score" variant="ghostLight">
-                Get your free Application Score
-              </Button>
-            </div>
           </div>
+        </div>
+        <div className={styles.mobileCtas}>
+          <Button href="#free-review" variant="accent">
+            Get one paragraph reviewed, free
+          </Button>
+          <Button href="#free-score" variant="secondary">
+            Get your free Application Score
+          </Button>
         </div>
       </div>
     </section>
