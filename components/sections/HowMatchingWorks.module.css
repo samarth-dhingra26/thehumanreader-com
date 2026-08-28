@@ -35,3 +35,21 @@
   color: var(--muted);
   line-height: 1.6;
 }
+
+@media (max-width: 30rem) {
+  .steps {
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    overflow: hidden;
+  }
+
+  .step {
+    padding: 1.1rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step:last-child {
+    border-bottom: none;
+  }
+}

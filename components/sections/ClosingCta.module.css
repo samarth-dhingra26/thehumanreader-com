@@ -1,0 +1,27 @@
+.section {
+  display: none;
+}
+
+@media (max-width: 30rem) {
+  .section {
+    display: block;
+    max-width: 46rem;
+    margin: 3rem auto 0;
+    padding: 2.4rem 1.6rem;
+    border-radius: 1.5rem;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    text-align: center;
+  }
+
+  .title {
+    font-size: 1.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .body {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    margin-bottom: 1.3rem;
+  }
+}

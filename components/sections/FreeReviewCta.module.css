@@ -1,0 +1,14 @@
+.mobileCard {
+  border-radius: 1.5rem;
+}
+
+@media (max-width: 30rem) {
+  .mobileCard {
+    background: var(--ink);
+    color: var(--ink-fg);
+    padding: 1.8rem 1.4rem;
+    --fg: var(--ink-fg);
+    --border: rgba(255, 255, 255, 0.2);
+    --muted: var(--ink-muted);
+  }
+}

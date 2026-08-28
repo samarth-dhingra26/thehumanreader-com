@@ -81,3 +81,27 @@
   justify-content: center;
   margin-top: 2rem;
 }
+
+@media (max-width: 30rem) {
+  .section {
+    padding: 3rem 0 3rem 1.2rem;
+  }
+
+  .grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+    padding-right: 1.2rem;
+  }
+
+  .card {
+    flex: 0 0 74%;
+    scroll-snap-align: start;
+  }
+
+  .cta {
+    padding-right: 1.2rem;
+  }
+}
