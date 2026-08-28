@@ -19,7 +19,8 @@
 }
 
 .number {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
+  font-weight: 700;
   font-size: clamp(1.8rem, 3.2vw, 2.4rem);
   margin-bottom: 0.3rem;
 }

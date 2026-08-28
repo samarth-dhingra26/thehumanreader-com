@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Archivo_Black, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-
-const displayFont = Archivo_Black({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["400"],
-});
 
 const bodyFont = Inter({
   subsets: ["latin"],
@@ -44,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <html lang="en" className={bodyFont.variable}>
       <body>{children}</body>
     </html>
   );

@@ -54,7 +54,8 @@
 }
 
 .tierPrice {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
+  font-weight: 700;
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
